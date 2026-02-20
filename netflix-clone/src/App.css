@@ -1,0 +1,5 @@
+/* App.css — minimal reset, TailwindCSS handles the rest via index.css */
+* {
+  margin: 0;
+  padding: 0;
+}
