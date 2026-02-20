@@ -7,7 +7,6 @@ import MovieRow from "./components/MovieRow";
 import FullscreenPlayer from "./components/FullscreenPlayer";
 import { movies, rows } from "./data/movies";
 
-// The default home background is always the Interstellar trailer
 const DEFAULT_BG = movies.find((m) => m.id === 1)?.preview;
 
 function App() {
@@ -18,7 +17,6 @@ function App() {
   const fadeTimerRef = useRef(null);
   const playTimerRef = useRef(null);
 
-  // Determine which src to show: hovered movie OR default Interstellar
   const targetSrc = selectedMovie
     ? null
     : hoveredMovie
@@ -29,12 +27,10 @@ function App() {
     const video = bgVideoRef.current;
     if (!video) return;
 
-    // Clear any pending timers
     clearTimeout(fadeTimerRef.current);
     clearTimeout(playTimerRef.current);
 
     if (!targetSrc) {
-      // Fade out and stop (fullscreen player is open)
       setBgOpacity(0);
       fadeTimerRef.current = setTimeout(() => {
         video.pause();
@@ -45,13 +41,11 @@ function App() {
     }
 
     if (prevSrcRef.current === targetSrc) {
-      // Same src — just make sure it's playing and visible
       video.play().catch(() => { });
       setBgOpacity(0.3);
       return;
     }
 
-    // New src — cross-fade: fade out → swap src → fade in
     setBgOpacity(0);
     playTimerRef.current = setTimeout(() => {
       prevSrcRef.current = targetSrc;
@@ -68,7 +62,6 @@ function App() {
 
   return (
     <div style={{ minHeight: "100vh", position: "relative" }}>
-      {/* ── Persistent background video ── */}
       <div className="bg-video-wrapper">
         <video
           ref={bgVideoRef}
@@ -83,10 +76,8 @@ function App() {
         <div className="bg-video-overlay" />
       </div>
 
-      {/* ── Fullscreen player ── */}
       <FullscreenPlayer />
 
-      {/* ── Main page ── */}
       {!selectedMovie && (
         <>
           <Navbar />

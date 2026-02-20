@@ -8,7 +8,6 @@ export const MovieProvider = ({ children }) => {
     const [selectedMovie, setSelectedMovie] = useState(null);
     const hoverTimerRef = useRef(null);
 
-    // Debounce hover to avoid flickering when moving between cards
     const setHoveredMovie = useCallback((movie) => {
         if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
         if (movie === null) {

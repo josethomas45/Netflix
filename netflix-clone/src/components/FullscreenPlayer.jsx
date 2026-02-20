@@ -8,7 +8,6 @@ const FullscreenPlayer = () => {
     const [showBtn, setShowBtn] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
 
-    // Auto-hide back button after 3s of no mouse movement
     const resetHideTimer = () => {
         setShowBtn(true);
         if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
@@ -23,7 +22,6 @@ const FullscreenPlayer = () => {
         return () => {
             if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedMovie]);
 
     const handleBack = () => {
@@ -39,7 +37,6 @@ const FullscreenPlayer = () => {
 
     return (
         <div className="fullscreen-player" onMouseMove={resetHideTimer}>
-            {/* Loading spinner */}
             {isLoading && (
                 <div
                     style={{
@@ -55,7 +52,6 @@ const FullscreenPlayer = () => {
                 </div>
             )}
 
-            {/* Video */}
             <video
                 ref={videoRef}
                 key={selectedMovie.id}
@@ -68,7 +64,6 @@ const FullscreenPlayer = () => {
                 onWaiting={() => setIsLoading(true)}
             />
 
-            {/* Movie title overlay (top right) */}
             <div
                 style={{
                     position: "absolute",
@@ -86,7 +81,6 @@ const FullscreenPlayer = () => {
                 {selectedMovie.title}
             </div>
 
-            {/* Back button */}
             <button
                 className={`back-btn ${showBtn ? "" : "hidden-btn"}`}
                 onClick={handleBack}
